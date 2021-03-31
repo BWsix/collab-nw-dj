@@ -23,7 +23,8 @@ class ApiView(View):
 
     img = Image.open(stream)
     img = img.resize((28, 28))
-    img.save('tester.png')
+
+    # img.save('tester.png')
 
     img_np = np.array(img)
     img_np = (img_np[:,:,3]/255).flatten()
