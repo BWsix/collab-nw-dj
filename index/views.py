@@ -26,6 +26,7 @@ class ApiView(View):
     img.save('tester.png')
 
     img_np = np.array(img)
+    img_np = (img_np[:,:,3]/255).flatten()
 
     # result = img_to_number(img_np)
 
