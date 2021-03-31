@@ -95,7 +95,7 @@
         }),
       })
         .then(response => response.json())
-        .then(data => document.getElementById('tester').innerHTML = data['key'])
+        .then(data => document.getElementById('tester').innerHTML = data['result'])
         .catch (err => console.log(err));
     }
 

@@ -30,7 +30,7 @@ class ApiView(View):
     # result = img_to_number(img_np)
 
     data = {
-      'reslt': 'some output number'
+      'result': 'some output number'
     }
 
     return JsonResponse(data)
