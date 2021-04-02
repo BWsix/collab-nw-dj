@@ -1,11 +1,14 @@
 import json, base64, io
+from itertools import repeat
 
-from django.shortcuts import render
+from django.shortcuts import render, resolve_url
 from django.views import View
 from django.http import JsonResponse
 
 from PIL import Image
 import numpy as np
+
+from .models.model import predict_number as img_to_number
 
 class HomeView(View):
   def get(self, req):
@@ -23,14 +26,20 @@ class ApiView(View):
 
     img = Image.open(stream)
     img = img.resize((28, 28))
-    img.save('tester.png')
+
+    # img.save('tester.png')
 
     img_np = np.array(img)
+    img_np = (img_np[:,:,3]/255).flatten()
 
-    # result = img_to_number(img_np)
+    result = img_to_number(img_np).flatten()
+    result = list(map(round, map(float, result), repeat(3)))
+
+    max_opp = result.index(max(result))
 
     data = {
-      'reslt': 'some output number'
+      'result': result,
+      'max_opp': max_opp,
     }
 
     return JsonResponse(data)

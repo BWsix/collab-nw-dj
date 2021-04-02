@@ -38,8 +38,11 @@
     <button type="button" class="btn btn-primary m-2" onclick="submit()">submit</button>
   </div>
 
-  <h2 id="tester"></h2>
+  <h2 id="max_opp"></h2>
 
+  <div>
+    <ol id="opps" start="0"></ol>
+  </div>
 
   <script>
     var canvas = document.getElementById('canvas');
@@ -95,7 +98,16 @@
         }),
       })
         .then(response => response.json())
-        .then(data => document.getElementById('tester').innerHTML = data['key'])
+        .then(data => {
+          document.getElementById('max_opp').innerHTML = "the number is :" + data['max_opp'];
+
+          temp = "";
+          data['result'].forEach(item => {
+            temp += "<li>"+item+"</li>";
+          });
+          document.getElementById('opps').innerHTML = temp;
+
+        })
         .catch (err => console.log(err));
     }
 
