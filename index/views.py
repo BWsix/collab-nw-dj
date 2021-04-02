@@ -28,7 +28,7 @@ class ApiView(View):
 
     img_np = np.array(img)
     img_np = (img_np[:,:,3]/255).flatten()
-
+    print(img_np)
     # result = img_to_number(img_np)
 
     data = {
