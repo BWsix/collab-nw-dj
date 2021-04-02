@@ -1,4 +1,5 @@
 import json, base64, io
+from itertools import repeat
 
 from django.shortcuts import render, resolve_url
 from django.views import View
@@ -32,7 +33,7 @@ class ApiView(View):
     img_np = (img_np[:,:,3]/255).flatten()
 
     result = img_to_number(img_np).flatten()
-    result = list(map(float, result))
+    result = list(map(round, map(float, result), repeat(3)))
 
     max_opp = result.index(max(result))
 
