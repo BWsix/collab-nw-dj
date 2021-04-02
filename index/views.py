@@ -32,10 +32,12 @@ class ApiView(View):
     img_np = (img_np[:,:,3]/255).flatten()
     print(img_np)
 
-    result = img_to_number(img_np)
-
+    result = img_to_number(img_np).flatten()
+    result = list(result)
+    result = list(map(float, result))
+    print(result)
     data = {
-      'result': result
+      'result': list(result)
     }
 
     return JsonResponse(data)
