@@ -1,6 +1,6 @@
 import json, base64, io
 
-from django.shortcuts import render
+from django.shortcuts import render, resolve_url
 from django.views import View
 from django.http import JsonResponse
 
@@ -30,14 +30,15 @@ class ApiView(View):
 
     img_np = np.array(img)
     img_np = (img_np[:,:,3]/255).flatten()
-    print(img_np)
 
     result = img_to_number(img_np).flatten()
-    result = list(result)
     result = list(map(float, result))
-    print(result)
+
+    max_opp = result.index(max(result))
+
     data = {
-      'result': list(result)
+      'result': result,
+      'max_opp': max_opp,
     }
 
     return JsonResponse(data)
