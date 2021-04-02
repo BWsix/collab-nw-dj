@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from PIL import Image
 import numpy as np
 
+from .models.model import predict_number as img_to_number
+
 class HomeView(View):
   def get(self, req):
     return render(req, 'home.html')
@@ -29,10 +31,11 @@ class ApiView(View):
     img_np = np.array(img)
     img_np = (img_np[:,:,3]/255).flatten()
     print(img_np)
-    # result = img_to_number(img_np)
+
+    result = img_to_number(img_np)
 
     data = {
-      'result': 'some output number'
+      'result': result
     }
 
     return JsonResponse(data)
